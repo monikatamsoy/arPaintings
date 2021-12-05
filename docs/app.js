@@ -125,6 +125,9 @@ class App{
                 self.chair.visible = false; 
                 
                 self.loadingBar.visible = false;
+
+                const gridHelper = new THREE.GridHelper( 5, 5 );
+                self.scene.add( gridHelper );
                 
                 self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
