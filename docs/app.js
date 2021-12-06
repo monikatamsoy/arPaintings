@@ -3,8 +3,8 @@ import { GLTFLoader } from './libs/three/jsm/GLTFLoader.js';
 import { RGBELoader } from './libs/three/jsm/RGBELoader.js';
 import { ARButton } from './libs/ARButton.js';
 import { LoadingBar } from './libs/LoadingBar.js';
-import { OrbitControls } from '../../libs/three/jsm/OrbitControls.js';
-import { ControllerGestures } from '../../libs/ControllerGestures.js';
+import { OrbitControls } from './libs/three/jsm/OrbitControls.js';
+import { ControllerGestures } from './libs/ControllerGestures.js';
 
 
 
