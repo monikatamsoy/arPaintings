@@ -5,8 +5,6 @@ import { ARButton } from './libs/ARButton.js';
 import { LoadingBar } from './libs/LoadingBar.js';
 import { OrbitControls } from './libs/three/jsm/OrbitControls.js';
 import { ControllerGestures } from './libs/ControllerGestures.js';
-import { Player } from './libs/Player.js';
-
 
 
 
@@ -98,24 +96,23 @@ class App{
         this.gestures.addEventListener( 'swipe', (ev)=>{
             console.log( ev.direction );   
             
-            if (ev.initialise !== undefined){
-                self.startQuaternion = self.chair.quaternion.clone();
-            }else{
+            
+                
+
                 self.chair.quaternion.copy( self.startQuaternion );
                 self.chair.rotateY( Math.PI/60 );
 
-            }
+            
         });
 
         this.gestures.addEventListener( 'pinch', (ev)=>{
-            //console.log( ev );  
-            if (ev.initialise !== undefined){
-                self.startScale = self.chair.object.scale.clone();
-            }else{
+            
+                self.startScale = self.chair.scale.clone();
+            
                 const scale = self.startScale.clone().multiplyScalar(ev.scale);
-                self.chair.object.scale.copy( scale );
+                self.chair.scale.copy( scale );
                 
-            }
+            
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
 
@@ -159,26 +156,16 @@ class App{
 			`${painting}.glb`,
 			// called when the resource is loaded
 			function ( gltf ) {
-                const object = gltf.scene.children[5];
-				// self.scene.add( self.chair );
-                // self.chair = gltf.scene;
-                
-                const options = {
-                    object: object,
-					app: self,
-					name: 'chair',
-					npc: false
-				};
-				
-				self.chair = new Player(options);
-                
-                self.scene.add( self.chair.object ); 
+
+				self.scene.add( gltf.scene );
+                self.chair = gltf.scene;
+        
                 self.chair.visible = false; 
                 
                 self.loadingBar.visible = false;
 
                 const gridHelper = new THREE.GridHelper( 5, 5 );
-                // self.scene.add( gridHelper );
+                self.scene.add( gridHelper );
                 
                 self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
