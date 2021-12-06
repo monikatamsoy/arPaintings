@@ -93,10 +93,8 @@ class App{
 
         this.gestures = new ControllerGestures( this.renderer );
         this.gestures.addEventListener( 'swipe', (ev)=>{
-            console.log( ev );   
-            // if(ev.direction == 'left') {
-            //     self.chair.object
-            // }
+            console.log( ev.direction );   
+            
             if (ev.initialise !== undefined){
                 self.startQuaternion = self.chair.object.quaternion.clone();
             }else{
