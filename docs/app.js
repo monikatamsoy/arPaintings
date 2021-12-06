@@ -5,6 +5,8 @@ import { ARButton } from './libs/ARButton.js';
 import { LoadingBar } from './libs/LoadingBar.js';
 import { OrbitControls } from './libs/three/jsm/OrbitControls.js';
 import { ControllerGestures } from './libs/ControllerGestures.js';
+import { Player } from '../../libs/Player.js';
+
 
 
 
@@ -157,16 +159,26 @@ class App{
 			`${painting}.glb`,
 			// called when the resource is loaded
 			function ( gltf ) {
-
-				self.scene.add( gltf.scene );
+                const object = gltf.scene.children[5];
+				// self.scene.add( self.chair );
                 self.chair = gltf.scene;
-        
+                
+                const options = {
+                    object: object,
+					app: self,
+					name: 'chair',
+					npc: false
+				};
+				
+				self.chair = new Player(options);
+                
+                self.scene.add( self.chair.object ); 
                 self.chair.visible = false; 
                 
                 self.loadingBar.visible = false;
 
                 const gridHelper = new THREE.GridHelper( 5, 5 );
-                self.scene.add( gridHelper );
+                // self.scene.add( gridHelper );
                 
                 self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
