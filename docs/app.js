@@ -5,7 +5,7 @@ import { ARButton } from './libs/ARButton.js';
 import { LoadingBar } from './libs/LoadingBar.js';
 import { OrbitControls } from './libs/three/jsm/OrbitControls.js';
 import { ControllerGestures } from './libs/ControllerGestures.js';
-import { Player } from '../../libs/Player.js';
+import { Player } from './libs/Player.js';
 
 
 
