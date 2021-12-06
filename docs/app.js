@@ -103,6 +103,19 @@ class App{
                 // self.ui.updateElement('info', `rotate ${ev.theta.toFixed(3)}`  );
             }
         });
+
+        this.gestures.addEventListener( 'pinch', (ev)=>{
+            //console.log( ev );  
+            if (ev.initialise !== undefined){
+                self.startScale = self.chair.object.scale.clone();
+            }else{
+                const scale = self.startScale.clone().multiplyScalar(ev.scale);
+                self.chair.object.scale.copy( scale );
+                
+            }
+        });
+        this.renderer.setAnimationLoop( this.render.bind(this) );
+
     }
 	
     resize(){
