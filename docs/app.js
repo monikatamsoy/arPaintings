@@ -96,10 +96,10 @@ class App{
             console.log( ev.direction );   
             
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.chair.object.quaternion.clone();
+                self.startQuaternion = self.chair.quaternion.clone();
             }else{
-                self.chair.object.quaternion.copy( self.startQuaternion );
-                self.chair.object.rotateY( Math.PI/60 );
+                self.chair.quaternion.copy( self.startQuaternion );
+                self.chair.rotateY( Math.PI/60 );
                 // self.ui.updateElement('info', `rotate ${ev.theta.toFixed(3)}`  );
             }
         });
