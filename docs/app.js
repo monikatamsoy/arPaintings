@@ -161,7 +161,7 @@ class App{
 			function ( gltf ) {
                 const object = gltf.scene.children[5];
 				// self.scene.add( self.chair );
-                self.chair = gltf.scene;
+                // self.chair = gltf.scene;
                 
                 const options = {
                     object: object,
