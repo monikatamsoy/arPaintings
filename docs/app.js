@@ -73,6 +73,7 @@ class App{
         }
         
         const self = this;
+        let controller, controller1;
 
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
