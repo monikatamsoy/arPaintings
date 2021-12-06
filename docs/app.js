@@ -3,6 +3,10 @@ import { GLTFLoader } from './libs/three/jsm/GLTFLoader.js';
 import { RGBELoader } from './libs/three/jsm/RGBELoader.js';
 import { ARButton } from './libs/ARButton.js';
 import { LoadingBar } from './libs/LoadingBar.js';
+import { OrbitControls } from '../../libs/three/jsm/OrbitControls.js';
+import { ControllerGestures } from '../../libs/ControllerGestures.js';
+
+
 
 class App{
 	constructor(){
@@ -39,6 +43,14 @@ class App{
         this.reticle.visible = false;
         this.scene.add( this.reticle );
         
+        this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+        this.controls.target.set(0, 3.5, 0);
+        this.controls.update();
+
+        this.origin = new THREE.Vector3();
+        this.euler = new THREE.Euler();
+        this.quaternion = new THREE.Quaternion();
+
         this.setupXR();
 		
 		window.addEventListener('resize', this.resize.bind(this) );
@@ -78,6 +90,21 @@ class App{
         this.controller.addEventListener( 'select', onSelect );
         
         this.scene.add( this.controller );
+
+        this.gestures = new ControllerGestures( this.renderer );
+        this.gestures.addEventListener( 'swipe', (ev)=>{
+            console.log( ev );   
+            // if(ev.direction == 'left') {
+            //     self.chair.object
+            // }
+            if (ev.initialise !== undefined){
+                self.startQuaternion = self.chair.object.quaternion.clone();
+            }else{
+                self.chair.object.quaternion.copy( self.startQuaternion );
+                self.chair.object.rotateY( Math.PI/60 );
+                // self.ui.updateElement('info', `rotate ${ev.theta.toFixed(3)}`  );
+            }
+        });
     }
 	
     resize(){
@@ -216,6 +243,7 @@ class App{
     getHitTestResults( frame ){
 
         
+        
         const hitTestResults = frame.getHitTestResults( this.hitTestSource );
 
         
@@ -227,7 +255,7 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
-                this.reticle.matrix.fromArray( pose.transform.matrix );
+                this.reticle.matrix.fromArray(pose.transform.matrix );
 
             } else {
 
