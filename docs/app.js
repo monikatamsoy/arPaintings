@@ -100,7 +100,7 @@ class App{
             }else{
                 self.chair.quaternion.copy( self.startQuaternion );
                 self.chair.rotateY( Math.PI/60 );
-                // self.ui.updateElement('info', `rotate ${ev.theta.toFixed(3)}`  );
+
             }
         });
 
