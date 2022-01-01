@@ -82,8 +82,11 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                let reticleWorld = self.reticle.localToWorld(self.reticle.quaternion)
-                let chairWorld = self.chair.localToWorld(self.chair.quaternion);
+                let reticleWorld;
+                self.reticle.localToWorld(self.reticle.quaternion)
+                let chairWorld;
+                self.chair.localToWorld(self.chair.quaternion);
+                self.chair.updateMatrixWorld()
                 console.log(reticleWorld, chairWorld)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 
