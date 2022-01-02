@@ -281,7 +281,7 @@ class App{
 
                 this.reticle.visible = true;
                 let aX = new THREE.Vector3()
-                this.reticle.matrix.extractBasis(aX, new THREE.Vector(), new THREE.Vector())
+                this.reticle.matrix.extractBasis(aX, new THREE.Vector3(), new THREE.Vector3())
 
                 let yUp = new THREE.Vector3(0,1,0)
                 let alpha = Math.asin(aX.dot(yUp)) 
