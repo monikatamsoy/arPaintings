@@ -93,6 +93,7 @@ class App{
                 self.chair.updateMatrixWorld()
                 const axesHelper = new THREE.AxesHelper( 1 );
                 self.chair.add( axesHelper );
+                self.chair.rotateZ(Math.PI/2)
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.scale.set(0.5,0.5,0.5)
