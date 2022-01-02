@@ -82,6 +82,9 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
+                self.chair.rotateZ(Math.PI/2);
+                self.chair.rotateY(Math.PI)
+                self.chair.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
                 let chairWorld = new THREE.Quaternion()
@@ -89,14 +92,12 @@ class App{
 
 
                 self.chair.quaternion.copy(reticleQuaternion);
-                
-                self.chair.updateMatrixWorld()
+                self.chair.updateMatrix();
+                // self.chair.updateMatrixWorld()
                 const axesHelper = new THREE.AxesHelper( 1 );
                 self.chair.add( axesHelper );
-                self.chair.rotateZ(Math.PI/2)
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
-                self.chair.scale.set(0.5,0.5,0.5)
                 self.chair.visible = true;
             }
         }
@@ -280,16 +281,8 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
-                let aX = new THREE.Vector3()
-                this.reticle.matrix.extractBasis(aX, new THREE.Vector3(), new THREE.Vector3())
-
-                let yUp = new THREE.Vector3(0,1,0)
-                let alpha = Math.asin(aX.dot(yUp)) 
-                                    
-                let m = new THREE.Matrix4()
-                m.makeRotationY(Math.PI+alpha) 
-
-                this.reticle.matrix.multiply(m) 
+                let axesHelper = new THREE.AxesHelper( 1 );
+                this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
             } else {
