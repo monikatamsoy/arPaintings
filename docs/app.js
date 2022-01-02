@@ -87,10 +87,11 @@ class App{
                 self.chair.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
+                
                 let chairWorld = new THREE.Quaternion()
                 self.chair.getWorldQuaternion(chairWorld);
-
-
+                // matrixWorldInverse = new Matrix4().getInverse( object.matrixWorld );
+                // matrixWorldInverse.transformQuaternion( quaternion );
                 self.chair.quaternion.copy(reticleQuaternion);
                 self.chair.updateMatrix();
                 // self.chair.updateMatrixWorld()
@@ -281,6 +282,9 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
+                let matrixWorldInverse = new Matrix4().getInverse( this.reticle.matrixWorld );
+
+                matrixWorldInverse.transformQuaternion( this.reticle.quaternion );
                 let axesHelper = new THREE.AxesHelper( 1 );
                 this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
