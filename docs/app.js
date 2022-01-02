@@ -83,18 +83,17 @@ class App{
             
             if (self.reticle.visible){
                 const reticleQuaternion = new THREE.Quaternion();
-                // self.reticle.localToWorld(self.reticle.quaternion)
                 self.reticle.getWorldQuaternion(reticleQuaternion);
                 let chairWorld = new THREE.Quaternion()
-                // self.chair.localToWorld(self.chair.quaternion);
                 self.chair.getWorldQuaternion(chairWorld);
 
-                // self.chair.updateMatrixWorld()
-                console.log(reticleQuaternion, chairWorld)
+
                 self.chair.quaternion.copy(reticleQuaternion);
                 
-                console.log(self.chair.quaternion)
                 self.chair.updateMatrixWorld()
+                const axesHelper = new THREE.AxesHelper( 1 );
+                self.chair.add( axesHelper );
+                self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.scale.set(0.5,0.5,0.5)
                 self.chair.visible = true;
