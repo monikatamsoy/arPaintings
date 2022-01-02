@@ -82,10 +82,10 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                let reticleWorld;
+                let reticleWorld = new THREE.Vector3()
                 // self.reticle.localToWorld(self.reticle.quaternion)
                 self.reticle.getWorldQuaternion(reticleWorld);
-                let chairWorld;
+                let chairWorld = new THREE.Vector3()
                 // self.chair.localToWorld(self.chair.quaternion);
                 self.chair.getWorldQuaternion(chairWorld);
 
