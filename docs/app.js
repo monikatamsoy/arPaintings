@@ -90,8 +90,10 @@ class App{
                 self.chair.getWorldQuaternion(chairWorld);
 
                 // self.chair.updateMatrixWorld()
-                console.log(reticleWorld, chairWorld)
-                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
+                console.log(reticleQuaternion, chairWorld)
+                self.chair.quaternion.copy(reticleQuaternion);
+                console.log(self.chair.quaternion)
+                // self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 
                 self.chair.visible = true;
             }
