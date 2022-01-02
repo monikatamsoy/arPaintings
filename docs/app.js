@@ -95,7 +95,7 @@ class App{
                 
                 console.log(self.chair.quaternion)
                 self.chair.updateMatrixWorld()
-                // self.chair.position.setFromMatrixPosition( self.reticle.matrix );
+                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.scale.set(0.5,0.5,0.5)
                 self.chair.visible = true;
             }
