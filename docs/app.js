@@ -83,10 +83,13 @@ class App{
             
             if (self.reticle.visible){
                 let reticleWorld;
-                self.reticle.localToWorld(self.reticle.quaternion)
+                // self.reticle.localToWorld(self.reticle.quaternion)
+                self.reticle.getWorldQuaternion(reticleWorld);
                 let chairWorld;
-                self.chair.localToWorld(self.chair.quaternion);
-                self.chair.updateMatrixWorld()
+                // self.chair.localToWorld(self.chair.quaternion);
+                self.chair.getWorldQuaternion(chairWorld);
+
+                // self.chair.updateMatrixWorld()
                 console.log(reticleWorld, chairWorld)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 
