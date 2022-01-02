@@ -282,9 +282,7 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
-                let matrixWorldInverse = new THREE.Matrix4().getInverse( this.reticle.matrixWorld );
-
-                matrixWorldInverse.transformQuaternion( this.reticle.quaternion );
+                
                 let axesHelper = new THREE.AxesHelper( 1 );
                 this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
@@ -301,6 +299,7 @@ class App{
 	render( timestamp, frame ) {
 
         if ( frame ) {
+            console.log(this.camera.rotation, this.camera.quaternion)
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
 
             if ( this.hitTestSource ) this.getHitTestResults( frame );
