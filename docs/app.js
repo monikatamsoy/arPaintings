@@ -282,7 +282,7 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
-                let matrixWorldInverse = new Matrix4().getInverse( this.reticle.matrixWorld );
+                let matrixWorldInverse = new THREE.Matrix4().getInverse( this.reticle.matrixWorld );
 
                 matrixWorldInverse.transformQuaternion( this.reticle.quaternion );
                 let axesHelper = new THREE.AxesHelper( 1 );
