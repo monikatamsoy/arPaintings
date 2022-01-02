@@ -280,6 +280,16 @@ class App{
                 let  pose = hit.getPose( referenceSpace );
 
                 this.reticle.visible = true;
+                let aX = new Vector3()
+                this.reticle.matrix.extractBasis(aX, new Vector(), new Vector())
+
+                let yUp = new Vector3(0,1,0)
+                let alpha = Math.asin(aX.dot(yUp)) 
+                                    
+                let m = new Matrix4()
+                m.makeRotationY(Math.PI+alpha) 
+
+                this.reticle.matrix.multiply(m) 
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
             } else {
