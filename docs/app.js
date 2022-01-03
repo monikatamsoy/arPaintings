@@ -83,7 +83,7 @@ class App{
             
             if (self.reticle.visible){
                 self.chair.rotateZ(Math.PI/2);
-                self.chair.rotateY(Math.PI)
+                // self.chair.rotateY(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
@@ -284,7 +284,7 @@ class App{
                 this.reticle.visible = true;
                 
                 let axesHelper = new THREE.AxesHelper( 1 );
-                this.reticle.add(axesHelper)
+                // this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
             } else {
