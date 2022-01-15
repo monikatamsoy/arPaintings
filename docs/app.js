@@ -106,26 +106,17 @@ class App{
             
             if (self.reticle.visible){
 
-                self.painting.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
-                
-                // let paintingWorld = new THREE.Quaternion()
-                // self.painting.getWorldQuaternion(paintingWorld);
-
 
                 self.painting.quaternion.copy(reticleQuaternion);
                 self.painting.updateMatrix();
-                // self.painting.updateMatrixWorld()
                 const axesHelper = new THREE.AxesHelper( 1 );
-                self.painting.add( axesHelper );
-                // self.reticle.add(axesHelper)
+                // self.painting.add( axesHelper );
                 self.painting.position.setFromMatrixPosition( self.reticle.matrix );
                 self.painting.visible = true;
-                // self.painting.rotateY = -Math.PI/2
                 self.painting.updateMatrix();
-                // self.painting.getObjectByName('underWater').rotation.y = -Math.PI/2;
-                // self.painting.updateMatrix();
+
             }
             
         }
@@ -141,12 +132,20 @@ class App{
             if (ev.initialise !== undefined){
                 self.startPosition = self.painting.position.clone();
             }else{
-                const pos = self.startPosition.clone().add( ev.delta.multiplyScalar(8) );
+                const pos = self.startPosition.clone().add( ev.delta.multiplyScalar(6) );
                 self.painting.position.copy( pos );
                 self.painting.updateMatrix();
             } 
         });
-
+        this.gestures.addEventListener( 'pinch', (ev)=>{
+            //console.log( ev );  
+            if (ev.initialise !== undefined){
+                self.startScale = self.painting.scale.clone();
+            }else{
+                const scale = self.startScale.clone().multiplyScalar(ev.scale);
+                self.painting.scale.copy( scale );
+            }
+        });
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
@@ -232,7 +231,7 @@ class App{
         let currentSession = null;
         const self = this;
         const axesHelper = new THREE.AxesHelper( 1 );
-        self.scene.add( axesHelper );
+        // self.scene.add( axesHelper );
         const sessionInit = { requiredFeatures: ['hit-test']};
 
         function onSessionStarted(session) {
@@ -311,7 +310,7 @@ class App{
                 
                 this.reticle.visible = true;
                 
-                let axesHelper = new THREE.AxesHelper( 0.5 );
+                let axesHelper = new THREE.AxesHelper( 0.2 );
                 this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
