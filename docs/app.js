@@ -151,11 +151,11 @@ class App{
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.reticle.quaternion.clone();
+                self.startQuaternion = self.chair.quaternion.clone();
             }else{
-                self.reticle.quaternion.copy( self.startQuaternion );
-                self.reticle.rotation.y = ev.theta;
-                self.reticle.updateMatrix();
+                self.chair.quaternion.copy( self.startQuaternion );
+                self.chair.children[0].rotation.y = ev.theta;
+                self.chair.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
