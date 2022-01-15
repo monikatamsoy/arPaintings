@@ -54,7 +54,7 @@ class App{
         
         // this.loadBackground();
         this.setupXR();
-		window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
+		// window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
@@ -105,9 +105,7 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                // self.chair.rotateZ(-Math.PI);
-                // self.chair.rotateY(Math.PI)
-                // self.chair.rotateX(Math.PI)
+
                 self.chair.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
@@ -128,7 +126,6 @@ class App{
                 self.chair.updateMatrix();
                 // self.chair.getObjectByName('underWater').rotation.y = -Math.PI/2;
                 // self.chair.updateMatrix();
-                console.log("chair",self.chair.quaternion, "reticle", self.reticle.quaternion)
             }
             
         }
