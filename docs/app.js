@@ -52,33 +52,14 @@ class App{
         this.euler = new THREE.Euler();
         this.quaternion = new THREE.Quaternion();
         
-        // this.loadBackground();
         this.setupXR();
-		// window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
+		
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
 
-    handleOrientation(e) {
-        var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-            this.reticle.rotation.y = gammaRotation;
-            this.reticle.updateMatrix();
-    }
     
-    loadBackground = () => {
-        // Load the images used in the background.
-        var path = "assets/cubemap/mountains/";
-        
     
-        let urls = [
-            path + 'posx.jpg',path + 'negx.jpg',
-            path +'posy.jpg', path +'negy.jpg',
-            path +'posz.jpg', path +'negz.jpg',
-          ];
-        var reflectionCube = new THREE.CubeTextureLoader().load(urls);
-        reflectionCube.format = THREE.RGBFormat;
-        this.scene.background = reflectionCube;
-    }
     
     setupXR(){
         this.renderer.xr.enabled = true;
