@@ -84,7 +84,7 @@ class App{
             if (self.reticle.visible){
                 // self.chair.rotateZ(Math.PI/2);
                 // self.chair.rotateY(Math.PI)
-                self.chair.rotateX(Math.PI)
+                // self.chair.rotateX(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
@@ -97,7 +97,7 @@ class App{
                 self.chair.updateMatrix();
                 // self.chair.updateMatrixWorld()
                 const axesHelper = new THREE.AxesHelper( 1 );
-                // self.chair.add( axesHelper );
+                self.chair.add( axesHelper );
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
@@ -181,8 +181,7 @@ class App{
                 
                 self.loadingBar.visible = false;
 
-                const gridHelper = new THREE.GridHelper( 5, 5 );
-                // self.scene.add( gridHelper );
+
                 
                 self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
@@ -202,10 +201,12 @@ class App{
 	}			
     
     initAR(){
+        
         //TO DO 2: Start an AR session
         let currentSession = null;
         const self = this;
-
+        const axesHelper = new THREE.AxesHelper( 1 );
+        self.scene.add( axesHelper );
         const sessionInit = { requiredFeatures: ['hit-test']};
 
         function onSessionStarted(session) {
@@ -285,7 +286,7 @@ class App{
                 this.reticle.visible = true;
                 
                 let axesHelper = new THREE.AxesHelper( 1 );
-                // this.reticle.add(axesHelper)
+                this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
             } else {
