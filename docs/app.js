@@ -40,6 +40,10 @@ class App{
         );
         
         this.reticle.matrixAutoUpdate = false;
+        window.addEventListener('deviceorientation', function(e) {
+            var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
+            this.reticle.rotation.y = gammaRotation;
+          });
         this.reticle.visible = false;
         this.scene.add( this.reticle );
         
@@ -284,7 +288,7 @@ class App{
                 let  referenceSpace = this.renderer.xr.getReferenceSpace();
                 let  hit = hitTestResults[ 0 ];
                 let  pose = hit.getPose( referenceSpace );
-
+                
                 this.reticle.visible = true;
                 
                 let axesHelper = new THREE.AxesHelper( 1 );
