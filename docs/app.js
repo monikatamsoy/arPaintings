@@ -82,7 +82,7 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                // self.chair.rotateZ(Math.PI/2);
+                self.chair.rotateZ(Math.PI/2);
                 // self.chair.rotateY(Math.PI)
                 // self.chair.rotateX(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
@@ -101,7 +101,9 @@ class App{
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
+                console.log("chair",self.chair.quaternion, "reticle", self.reticle.quaternion)
             }
+            
         }
 
         this.controller = this.renderer.xr.getController( 0 );
