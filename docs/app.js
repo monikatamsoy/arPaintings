@@ -148,14 +148,14 @@ class App{
             
         });
 
-        this.gestures.addEventListener( 'pinch', (ev)=>{
-            
-                self.startScale = self.chair.scale.clone();
-            
-                const scale = self.startScale.clone().multiplyScalar(ev.scale);
-                self.chair.scale.copy( scale );
-                
-            
+        this.gestures.addEventListener( 'rotate', (ev)=>{
+            //      console.log( ev ); 
+            if (ev.initialise !== undefined){
+                self.startQuaternion = self.chair.quaternion.clone();
+            }else{
+                self.chair.quaternion.copy( self.startQuaternion );
+                self.chair.rotation = ev.theta;
+            }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
 
@@ -327,7 +327,10 @@ class App{
 	render( timestamp, frame ) {
 
         if ( frame ) {
-            console.log(this.camera.rotation, this.camera.quaternion)
+            if ( this.renderer.xr.isPresenting ){
+                this.gestures.update();
+                
+            }
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
 
             if ( this.hitTestSource ) this.getHitTestResults( frame );
