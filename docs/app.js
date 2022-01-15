@@ -151,11 +151,11 @@ class App{
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.chair.quaternion.clone();
+                self.startQuaternion = self.reticle.quaternion.clone();
             }else{
-                self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.rotation.x = ev.theta;
-                self.chair.updateMatrix();
+                self.reticle.quaternion.copy( self.startQuaternion );
+                self.reticle.rotation = ev.theta;
+                self.reticle.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
@@ -312,7 +312,7 @@ class App{
                 
                 this.reticle.visible = true;
                 
-                let axesHelper = new THREE.AxesHelper( 1 );
+                let axesHelper = new THREE.AxesHelper( 0.5 );
                 this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
