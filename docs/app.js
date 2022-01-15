@@ -125,7 +125,7 @@ class App{
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
                 // self.chair.rotateY = -Math.PI/2
-                // self.chair.updateMatrix();
+                self.chair.updateMatrix();
                 // self.chair.getObjectByName('underWater').rotation.y = -Math.PI/2;
                 // self.chair.updateMatrix();
                 console.log("chair",self.chair.quaternion, "reticle", self.reticle.quaternion)
