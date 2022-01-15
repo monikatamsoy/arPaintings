@@ -136,16 +136,15 @@ class App{
         this.scene.add( this.controller );
 
         this.gestures = new ControllerGestures( this.renderer );
-        this.gestures.addEventListener( 'swipe', (ev)=>{
-            console.log( ev.direction );   
-            
-            
-                
-
-                self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.rotateY( Math.PI/60 );
-
-            
+        this.gestures.addEventListener( 'pan', (ev)=>{
+            // console.log( ev );
+            if (ev.initialise !== undefined){
+                self.startPosition = self.chair.position.clone();
+            }else{
+                const pos = self.startPosition.clone().add( ev.delta.multiplyScalar(8) );
+                self.chair.position.copy( pos );
+                self.chair.updateMatrix();
+            } 
         });
 
         this.gestures.addEventListener( 'rotate', (ev)=>{
