@@ -154,7 +154,7 @@ class App{
                 self.startQuaternion = self.reticle.quaternion.clone();
             }else{
                 self.reticle.quaternion.copy( self.startQuaternion );
-                self.reticle.rotation = ev.theta;
+                self.reticle.rotation.y = ev.theta;
                 self.reticle.updateMatrix();
             }
         });
