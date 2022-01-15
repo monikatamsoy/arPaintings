@@ -82,7 +82,7 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                self.chair.rotateZ(Math.PI/2);
+                self.chair.rotateZ(-Math.PI/2);
                 // self.chair.rotateY(Math.PI)
                 // self.chair.rotateX(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
