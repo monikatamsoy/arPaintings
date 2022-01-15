@@ -54,7 +54,7 @@ class App{
         
         // this.loadBackground();
         this.setupXR();
-		// window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
+		window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
@@ -62,6 +62,7 @@ class App{
     handleOrientation(e) {
         var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
             this.reticle.rotation.y = gammaRotation;
+            this.reticle.updateMatrix();
     }
     
     loadBackground = () => {
