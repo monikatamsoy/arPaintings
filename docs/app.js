@@ -102,30 +102,30 @@ class App{
         this.hitTestSource = null;
         
         function onSelect() {
-            if (self.chair===undefined) return;
+            if (self.painting===undefined) return;
             
             if (self.reticle.visible){
 
-                self.chair.scale.set(0.5,0.5,0.5)
+                self.painting.scale.set(0.5,0.5,0.5)
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
                 
-                // let chairWorld = new THREE.Quaternion()
-                // self.chair.getWorldQuaternion(chairWorld);
+                // let paintingWorld = new THREE.Quaternion()
+                // self.painting.getWorldQuaternion(paintingWorld);
 
 
-                self.chair.quaternion.copy(reticleQuaternion);
-                self.chair.updateMatrix();
-                // self.chair.updateMatrixWorld()
+                self.painting.quaternion.copy(reticleQuaternion);
+                self.painting.updateMatrix();
+                // self.painting.updateMatrixWorld()
                 const axesHelper = new THREE.AxesHelper( 1 );
-                self.chair.add( axesHelper );
+                self.painting.add( axesHelper );
                 // self.reticle.add(axesHelper)
-                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
-                self.chair.visible = true;
-                // self.chair.rotateY = -Math.PI/2
-                self.chair.updateMatrix();
-                // self.chair.getObjectByName('underWater').rotation.y = -Math.PI/2;
-                // self.chair.updateMatrix();
+                self.painting.position.setFromMatrixPosition( self.reticle.matrix );
+                self.painting.visible = true;
+                // self.painting.rotateY = -Math.PI/2
+                self.painting.updateMatrix();
+                // self.painting.getObjectByName('underWater').rotation.y = -Math.PI/2;
+                // self.painting.updateMatrix();
             }
             
         }
@@ -139,22 +139,22 @@ class App{
         this.gestures.addEventListener( 'pan', (ev)=>{
             // console.log( ev );
             if (ev.initialise !== undefined){
-                self.startPosition = self.chair.position.clone();
+                self.startPosition = self.painting.position.clone();
             }else{
                 const pos = self.startPosition.clone().add( ev.delta.multiplyScalar(8) );
-                self.chair.position.copy( pos );
-                self.chair.updateMatrix();
+                self.painting.position.copy( pos );
+                self.painting.updateMatrix();
             } 
         });
 
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.chair.quaternion.clone();
+                self.startQuaternion = self.painting.quaternion.clone();
             }else{
-                self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.children[0].rotation.y = ev.theta;
-                self.chair.updateMatrix();
+                self.painting.quaternion.copy( self.startQuaternion );
+                self.painting.children[0].rotation.y = ev.theta;
+                self.painting.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
@@ -185,7 +185,7 @@ class App{
         } );
     }
     
-	showChair(painting){
+	showPainting(painting){
         this.initAR();
         
 		const loader = new GLTFLoader( ).setPath(this.assetsPath);
@@ -201,9 +201,9 @@ class App{
 			function ( gltf ) {
 
 				self.scene.add( gltf.scene );
-                self.chair = gltf.scene;
+                self.painting = gltf.scene;
         
-                self.chair.visible = false; 
+                self.painting.visible = false; 
                 
                 self.loadingBar.visible = false;
 
@@ -249,9 +249,9 @@ class App{
 
             currentSession = null;
 
-            if (self.chair !== null) {
-                self.scene.remove( self.chair) ;
-                self.chair = null;
+            if (self.painting !== null) {
+                self.scene.remove( self.painting) ;
+                self.painting = null;
             }
 
             self.renderer.setAnimationLoop( null)
