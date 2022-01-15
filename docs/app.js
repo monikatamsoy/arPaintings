@@ -154,7 +154,8 @@ class App{
                 self.startQuaternion = self.chair.quaternion.clone();
             }else{
                 self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.rotation.y = ev.theta;
+                self.chair.rotation.z = ev.theta;
+                self.chair.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
