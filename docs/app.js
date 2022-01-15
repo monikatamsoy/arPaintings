@@ -40,10 +40,7 @@ class App{
         );
         
         this.reticle.matrixAutoUpdate = false;
-        window.addEventListener('deviceorientation', function(e) {
-            var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-            this.reticle.rotation.y = gammaRotation;
-          });
+        
         this.reticle.visible = false;
         this.scene.add( this.reticle );
         
@@ -56,10 +53,15 @@ class App{
         this.quaternion = new THREE.Quaternion();
 
         this.setupXR();
-		
+		window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
+
+    handleOrientation(e) {
+        var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
+            this.reticle.rotation.y = gammaRotation;
+    }
     
     setupXR(){
         this.renderer.xr.enabled = true;
