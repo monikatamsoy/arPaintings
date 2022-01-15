@@ -114,8 +114,7 @@ class App{
                 // let chairWorld = new THREE.Quaternion()
                 // self.chair.getWorldQuaternion(chairWorld);
 
-                // matrixWorldInverse = new Matrix4().getInverse( object.matrixWorld );
-                // matrixWorldInverse.transformQuaternion( quaternion );
+
                 self.chair.quaternion.copy(reticleQuaternion);
                 self.chair.updateMatrix();
                 // self.chair.updateMatrixWorld()
@@ -124,7 +123,9 @@ class App{
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
-                self.chair.rotateY = -Math.PI/2
+                // self.chair.rotateY = -Math.PI/2
+                // self.chair.updateMatrix();
+                self.chair.getObjectByName('underWater').rotation.y = -Math.PI/2;
                 self.chair.updateMatrix();
                 console.log("chair",self.chair.quaternion, "reticle", self.reticle.quaternion)
             }
