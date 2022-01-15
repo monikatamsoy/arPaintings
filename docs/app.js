@@ -52,9 +52,9 @@ class App{
         this.euler = new THREE.Euler();
         this.quaternion = new THREE.Quaternion();
         
-        this.loadBackground();
+        // this.loadBackground();
         this.setupXR();
-		window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
+		// window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
@@ -104,7 +104,7 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                self.chair.rotateZ(-Math.PI);
+                // self.chair.rotateZ(-Math.PI);
                 // self.chair.rotateY(Math.PI)
                 // self.chair.rotateX(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
@@ -113,7 +113,7 @@ class App{
                 
                 let chairWorld = new THREE.Quaternion()
                 self.chair.getWorldQuaternion(chairWorld);
-                
+
                 // matrixWorldInverse = new Matrix4().getInverse( object.matrixWorld );
                 // matrixWorldInverse.transformQuaternion( quaternion );
                 self.chair.quaternion.copy(reticleQuaternion);
