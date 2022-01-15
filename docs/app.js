@@ -111,8 +111,8 @@ class App{
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
                 
-                let chairWorld = new THREE.Quaternion()
-                self.chair.getWorldQuaternion(chairWorld);
+                // let chairWorld = new THREE.Quaternion()
+                // self.chair.getWorldQuaternion(chairWorld);
 
                 // matrixWorldInverse = new Matrix4().getInverse( object.matrixWorld );
                 // matrixWorldInverse.transformQuaternion( quaternion );
@@ -124,6 +124,7 @@ class App{
                 // self.reticle.add(axesHelper)
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
+                self.chair.rotateY = -Math.PI/2
                 console.log("chair",self.chair.quaternion, "reticle", self.reticle.quaternion)
             }
             
