@@ -51,7 +51,8 @@ class App{
         this.origin = new THREE.Vector3();
         this.euler = new THREE.Euler();
         this.quaternion = new THREE.Quaternion();
-
+        
+        this.loadBackground();
         this.setupXR();
 		window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
 		window.addEventListener('resize', this.resize.bind(this) );
@@ -61,6 +62,21 @@ class App{
     handleOrientation(e) {
         var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
             this.reticle.rotation.y = gammaRotation;
+    }
+    
+    loadBackground = () => {
+        // Load the images used in the background.
+        var path = "assets/cubemap/mountains/";
+        
+    
+        let urls = [
+            path + 'posx.jpg',path + 'negx.jpg',
+            path +'posy.jpg', path +'negy.jpg',
+            path +'posz.jpg', path +'negz.jpg',
+          ];
+        var reflectionCube = new THREE.CubeTextureLoader().load(urls);
+        reflectionCube.format = THREE.RGBFormat;
+        this.scene.background = reflectionCube;
     }
     
     setupXR(){
@@ -88,7 +104,7 @@ class App{
             if (self.chair===undefined) return;
             
             if (self.reticle.visible){
-                self.chair.rotateZ(-Math.PI/2);
+                self.chair.rotateZ(-Math.PI);
                 // self.chair.rotateY(Math.PI)
                 // self.chair.rotateX(Math.PI)
                 self.chair.scale.set(0.5,0.5,0.5)
@@ -97,6 +113,7 @@ class App{
                 
                 let chairWorld = new THREE.Quaternion()
                 self.chair.getWorldQuaternion(chairWorld);
+                
                 // matrixWorldInverse = new Matrix4().getInverse( object.matrixWorld );
                 // matrixWorldInverse.transformQuaternion( quaternion );
                 self.chair.quaternion.copy(reticleQuaternion);
