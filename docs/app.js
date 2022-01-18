@@ -88,7 +88,7 @@ class App{
             if (self.reticle.visible){
 
                 const reticleQuaternion = new THREE.Quaternion();
-                self.reticle.getLocalQuaternion(reticleQuaternion);
+                // self.reticle.getLocalQuaternion(reticleQuaternion);
 
                 self.painting.rotation.copy(self.reticle.rotation);
                 // self.painting.rotation.y = self.reticle.rotation.y;
