@@ -130,9 +130,9 @@ class App{
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.painting.quaternion.clone();
+                self.rotation = self.painting.rotation.clone();
             }else{
-                self.painting.quaternion.copy( self.startQuaternion );
+                self.painting.rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
                 self.painting.updateMatrix();
             }
