@@ -52,33 +52,14 @@ class App{
         this.euler = new THREE.Euler();
         this.quaternion = new THREE.Quaternion();
         
-        // this.loadBackground();
         this.setupXR();
-		// window.addEventListener('deviceorientation',this.handleOrientation.bind(this));
+		
 		window.addEventListener('resize', this.resize.bind(this) );
         
 	}
 
-    handleOrientation(e) {
-        var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-            this.reticle.rotation.y = gammaRotation;
-            this.reticle.updateMatrix();
-    }
     
-    loadBackground = () => {
-        // Load the images used in the background.
-        var path = "assets/cubemap/mountains/";
-        
     
-        let urls = [
-            path + 'posx.jpg',path + 'negx.jpg',
-            path +'posy.jpg', path +'negy.jpg',
-            path +'posz.jpg', path +'negz.jpg',
-          ];
-        var reflectionCube = new THREE.CubeTextureLoader().load(urls);
-        reflectionCube.format = THREE.RGBFormat;
-        this.scene.background = reflectionCube;
-    }
     
     setupXR(){
         this.renderer.xr.enabled = true;
@@ -102,30 +83,20 @@ class App{
         this.hitTestSource = null;
         
         function onSelect() {
-            if (self.chair===undefined) return;
+            if (self.painting===undefined) return;
             
             if (self.reticle.visible){
 
-                self.chair.scale.set(0.5,0.5,0.5)
-                const reticleQuaternion = new THREE.Quaternion();
-                self.reticle.getWorldQuaternion(reticleQuaternion);
                 
-                // let chairWorld = new THREE.Quaternion()
-                // self.chair.getWorldQuaternion(chairWorld);
 
-
-                self.chair.quaternion.copy(reticleQuaternion);
-                self.chair.updateMatrix();
-                // self.chair.updateMatrixWorld()
+                self.painting.quaternion.copy(self.reticle.quaternion);
+                self.painting.updateMatrix();
                 const axesHelper = new THREE.AxesHelper( 1 );
-                self.chair.add( axesHelper );
-                // self.reticle.add(axesHelper)
-                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
-                self.chair.visible = true;
-                // self.chair.rotateY = -Math.PI/2
-                self.chair.updateMatrix();
-                // self.chair.getObjectByName('underWater').rotation.y = -Math.PI/2;
-                // self.chair.updateMatrix();
+                // self.painting.add( axesHelper );
+                self.painting.position.setFromMatrixPosition( self.reticle.matrix );
+                self.painting.visible = true;
+                self.painting.updateMatrix();
+
             }
             
         }
@@ -136,26 +107,36 @@ class App{
         this.scene.add( this.controller );
 
         this.gestures = new ControllerGestures( this.renderer );
-        this.gestures.addEventListener( 'swipe', (ev)=>{
-            console.log( ev.direction );   
-            
-            
-                
-
-                self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.rotateY( Math.PI/60 );
-
-            
+        this.gestures.addEventListener( 'pan', (ev)=>{
+            // console.log( ev );
+            if (ev.initialise !== undefined){
+                self.startPosition = self.painting.position.clone();
+            }else{
+                const pos = self.startPosition.clone().add( ev.delta.multiplyScalar(6) );
+                self.painting.position.copy( pos );
+                self.painting.updateMatrix();
+            } 
         });
-
+        this.gestures.addEventListener( 'pinch', (ev)=>{
+            //console.log( ev );  
+            if (ev.initialise !== undefined){
+                self.startScale = self.painting.scale.clone();
+            }else{
+                const scale = self.startScale.clone().multiplyScalar(ev.scale);
+                self.painting.scale.copy( scale );
+            }
+        });
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.startQuaternion = self.chair.quaternion.clone();
+                self.startQuaternion = self.painting.quaternion.clone();
             }else{
-                self.chair.quaternion.copy( self.startQuaternion );
-                self.chair.rotation.x = ev.theta;
-                self.chair.updateMatrix();
+                self.painting.quaternion.copy( self.startQuaternion);
+                self.painting.children[0].rotation.y = ev.theta;
+                // self.reticle.rotation.y = self.painting.children[0].rotation.y
+                // self.reticle.quaternion.copy(self.startQuaternion)
+                self.painting.updateMatrix();
+                // self.reticle.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
@@ -186,7 +167,7 @@ class App{
         } );
     }
     
-	showChair(painting){
+	showPainting(painting){
         this.initAR();
         
 		const loader = new GLTFLoader( ).setPath(this.assetsPath);
@@ -202,9 +183,9 @@ class App{
 			function ( gltf ) {
 
 				self.scene.add( gltf.scene );
-                self.chair = gltf.scene;
+                self.painting = gltf.scene;
         
-                self.chair.visible = false; 
+                self.painting.visible = false; 
                 
                 self.loadingBar.visible = false;
 
@@ -233,7 +214,7 @@ class App{
         let currentSession = null;
         const self = this;
         const axesHelper = new THREE.AxesHelper( 1 );
-        self.scene.add( axesHelper );
+        // self.scene.add( axesHelper );
         const sessionInit = { requiredFeatures: ['hit-test']};
 
         function onSessionStarted(session) {
@@ -250,9 +231,9 @@ class App{
 
             currentSession = null;
 
-            if (self.chair !== null) {
-                self.scene.remove( self.chair) ;
-                self.chair = null;
+            if (self.painting !== null) {
+                self.scene.remove( self.painting) ;
+                self.painting = null;
             }
 
             self.renderer.setAnimationLoop( null)
@@ -312,7 +293,7 @@ class App{
                 
                 this.reticle.visible = true;
                 
-                let axesHelper = new THREE.AxesHelper( 1 );
+                let axesHelper = new THREE.AxesHelper( 0.2 );
                 this.reticle.add(axesHelper)
                 this.reticle.matrix.fromArray(pose.transform.matrix );
 
