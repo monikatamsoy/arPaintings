@@ -87,11 +87,10 @@ class App{
             
             if (self.reticle.visible){
 
-                const reticleQuaternion = new THREE.Quaternion();
-                // self.reticle.getLocalQuaternion(reticleQuaternion);
+                
 
-                self.painting.rotation.copy(self.reticle.rotation);
-                // self.painting.rotation.y = self.reticle.rotation.y;
+                self.painting.quaternion.copy(self.reticle.quaternion);
+                self.painting.updateMatrix();
                 const axesHelper = new THREE.AxesHelper( 1 );
                 // self.painting.add( axesHelper );
                 self.painting.position.setFromMatrixPosition( self.reticle.matrix );
@@ -130,11 +129,11 @@ class App{
         this.gestures.addEventListener( 'rotate', (ev)=>{
             //      console.log( ev ); 
             if (ev.initialise !== undefined){
-                self.rotation = self.painting.rotation.clone();
+                self.rotation = self.painting.children[0].rotation.clone();
             }else{
-                self.painting.rotation.copy( self.rotation);
+                self.painting.children[0].rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
-                self.reticle.rotation.y = ev.theta
+                self.reticle.rotation.y = self.painting.children[0].rotation.y
                 self.painting.updateMatrix();
                 self.reticle.updateMatrix();
             }
