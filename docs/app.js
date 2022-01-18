@@ -88,10 +88,10 @@ class App{
             if (self.reticle.visible){
 
                 const reticleQuaternion = new THREE.Quaternion();
-                self.reticle.getWorldQuaternion(reticleQuaternion);
+                self.reticle.getLocalQuaternion(reticleQuaternion);
 
-                self.painting.quaternion.copy(reticleQuaternion);
-                self.painting.updateMatrix();
+                self.painting.rotation.copy(self.reticle.rotation);
+                // self.painting.rotation.y = self.reticle.rotation.y;
                 const axesHelper = new THREE.AxesHelper( 1 );
                 // self.painting.add( axesHelper );
                 self.painting.position.setFromMatrixPosition( self.reticle.matrix );
