@@ -87,11 +87,10 @@ class App{
             
             if (self.reticle.visible){
 
-                // const reticleQuaternion = new THREE.Quaternion();
-                // self.reticle.getWorldQuaternion(reticleQuaternion);
+                const reticleQuaternion = new THREE.Quaternion();
+                self.reticle.getWorldQuaternion(reticleQuaternion);
 
-                // self.painting.quaternion.copy(reticleQuaternion);
-                self.painting.rotation.x = self.reticle.rotation.x;
+                self.painting.quaternion.copy(reticleQuaternion);
                 self.painting.updateMatrix();
                 const axesHelper = new THREE.AxesHelper( 1 );
                 // self.painting.add( axesHelper );
@@ -135,7 +134,9 @@ class App{
             }else{
                 self.painting.rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
+                self.reticle.rotation.y = ev.theta
                 self.painting.updateMatrix();
+                self.reticle.updateMatrix();
             }
         });
         this.renderer.setAnimationLoop( this.render.bind(this) );
