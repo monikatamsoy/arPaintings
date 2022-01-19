@@ -93,7 +93,7 @@ class App{
 
                 self.painting.quaternion.copy(reticleQuaternion);
                 self.painting.updateMatrix();
-                console.log(self.reticle.quaternion.angleTo(self.painting.quaternion))
+                console.log("painting quaternion ",self.painting.quaternion, "reticle quaternion ", self.reticle.quaternion);
 
                 const axesHelper = new THREE.AxesHelper( 1 );
                 // self.painting.add( axesHelper );
@@ -137,7 +137,7 @@ class App{
             }else{
                 self.painting.rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
-                console.log(self.reticle.quaternion.angleTo(self.painting.quaternion))
+                console.log("painting quaternion ",self.painting.quaternion, "reticle quaternion ", self.reticle.quaternion)
                 self.painting.updateMatrix();
             }
         });
