@@ -89,9 +89,12 @@ class App{
 
                 const reticleQuaternion = new THREE.Quaternion();
                 self.reticle.getWorldQuaternion(reticleQuaternion);
+                console.log(self.reticle.quaternion.angleTo(self.painting.quaternion))
 
                 self.painting.quaternion.copy(reticleQuaternion);
                 self.painting.updateMatrix();
+                console.log(self.reticle.quaternion.angleTo(self.painting.quaternion))
+
                 const axesHelper = new THREE.AxesHelper( 1 );
                 // self.painting.add( axesHelper );
                 self.painting.position.setFromMatrixPosition( self.reticle.matrix );
@@ -134,6 +137,7 @@ class App{
             }else{
                 self.painting.rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
+                console.log(self.reticle.quaternion.angleTo(self.painting.quaternion))
                 self.painting.updateMatrix();
             }
         });
