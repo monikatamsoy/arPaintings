@@ -1,5 +1,5 @@
 # arPaintings
-This web application lets the user place an AR painting on his wall. 
+This web application lets the user place an AR painting on his wall. Link is here - [Github Page](https://monikatamsoy.github.io/arPaintings/)
 
 Here is a demo video of the web app opened in Chrome browser from an ARCore supported Android phone(OnePlus 7T)
 
