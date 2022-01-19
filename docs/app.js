@@ -137,6 +137,8 @@ class App{
             }else{
                 self.painting.rotation.copy( self.rotation);
                 self.painting.children[0].rotation.y = ev.theta;
+                self.reticle.rotateOnWorldAxis(new THREE.Vector3(0,1,0), ev.theta);
+                self.reticle.updateMatrixWorld();
                 console.log("painting quaternion ",self.painting.quaternion, "reticle quaternion ", self.reticle.quaternion)
                 self.painting.updateMatrix();
             }
